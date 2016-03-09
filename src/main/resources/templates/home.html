@@ -25,6 +25,10 @@ Messages by {{name}}:
     <input type="hidden" name="id" value="{{id}}"/>
     <button type="submit">Delete</button>
     </form>
+    <form action="/edit" method="post">
+        <input type="hidden" name="id" value="{{id}}"/>
+        <input type="text" placeholder="Edit Message" name="text"/>
+    </form>
 {{/messages}}
 </ol>
 {{/name}}

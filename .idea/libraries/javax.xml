@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="javax">
+    <ANNOTATIONS>
+      <root url="file://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.transaction" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.transaction" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.transaction" />
+    </JAVADOC>
+    <NATIVE>
+      <root url="file://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.transaction" />
+    </NATIVE>
+    <SOURCES>
+      <root url="file://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.transaction" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.transaction" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.transaction" recursive="false" type="SOURCES" />
+  </library>
+</component>

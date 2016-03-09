@@ -1,5 +1,6 @@
 package com.theironyard;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +14,13 @@ import java.util.ArrayList;
  */
 @Controller
 public class MicroblogSpringController {
-    ArrayList<Message> messages = new ArrayList<>();
+    @Autowired
+    MessageRepository messages;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model, HttpSession session) { // httpsession wants a GD object for some reason.
+    public String home(Model model, HttpSession session) {
         model.addAttribute("name", session.getAttribute("userName"));
-        model.addAttribute("messages", messages);
+        model.addAttribute("messages", messages.findAll());
         return "home";
     }
     @RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -30,22 +32,24 @@ public class MicroblogSpringController {
     public String createMessage(HttpSession session, String message) {
         session.getAttribute("userName");
         Message m = new Message(message, String.valueOf(session.getAttribute("userName")));
-
-        messages.add(m);
-        m.setId((messages.size())-1);
+        messages.save(m);
         return "redirect:/";
     }
     @RequestMapping(path = "/delete", method = RequestMethod.POST)
-    public String delete(int id) {
-        messages.remove(id);
-        for (Message m : messages) {
-            m.setId((messages.size())-1);
-        }
+    public String delete(Integer id) {
+        messages.delete(id);
         return "redirect:/";
     }
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
     public String logout(HttpSession session) {
         session.invalidate();
+        return "redirect:/";
+    }
+    @RequestMapping(path = "/edit", method = RequestMethod.POST)
+    public String edit(Integer id, String text) {
+        Message m = messages.findOne(id);
+        m.text = text;
+        messages.save(m);
         return "redirect:/";
     }
 }
