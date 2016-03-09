@@ -7,18 +7,27 @@
 </form>
 {{/name}}
 {{#name}}
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
 <form action="/createMessage" method="post">
     <input type="text" placeholder="Create a message" name="message"/>
     <button type="submit">Add Message</button>
 </form>
 {{/name}}
+
 {{#messages}}
+Messages by: {{#name}}{{name}}{{/name}}:
+{{/messages}}
 <ol>
-    Messages by {{#name}}{{userName}}{{/name}}:
-    <li>{{.}}</li><form action="/delete" method="post">
+{{#messages}}
+
+
+    <li>{{text}}</li><form action="/delete" method="post">
+    <input type="hidden" name="id" value="{{id}}"/>
     <button type="submit">Delete</button>
     </form>
+    {{/messages}}
 </ol>
-{{/messages}}
 </body>
 </html>

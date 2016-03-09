@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 @Controller
 public class MicroblogSpringController {
-    ArrayList<String> messages = new ArrayList<>();
+    ArrayList<Message> messages = new ArrayList<>();
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home(Model model, HttpSession session) { // httpsession wants a GD object for some reason.
@@ -23,20 +23,29 @@ public class MicroblogSpringController {
     }
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login(HttpSession session, String userName) {
-        session.setAttribute("userName", new User(userName));
+        session.setAttribute("userName", userName);
         return "redirect:/";
     }
     @RequestMapping(path = "/createMessage", method = RequestMethod.POST)
     public String createMessage(HttpSession session, String message) {
         session.getAttribute("userName");
-        messages.add(message);
+        Message m = new Message(message, String.valueOf(session.getAttribute("userName")));
+
+        messages.add(m);
+        m.setId((messages.size())-1);
         return "redirect:/";
     }
     @RequestMapping(path = "/delete", method = RequestMethod.POST)
-    public String delete(HttpSession session, String message) {
-        session.getAttribute("username");
-        String messageToRemove = message;
-        messages.remove(messageToRemove);
+    public String delete(int id) {
+        messages.remove(id);
+        for (Message m : messages) {
+            m.setId((messages.size())-1);
+        }
+        return "redirect:/";
+    }
+    @RequestMapping(path = "/logout", method = RequestMethod.POST)
+    public String logout(HttpSession session) {
+        session.invalidate();
         return "redirect:/";
     }
 }
